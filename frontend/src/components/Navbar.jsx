@@ -11,7 +11,7 @@ const Navbar = ({ user }) => {
           <span className="text-3xl font-bold text-white tracking-tight">Vantage</span>
         </Link>
 
-        <div className="flex items-center gap-8 text-sm font-medium">
+        <div className="flex items-center gap-8 text-sm font-medium text-[#94a3b8]">
           {/* Conditional Links */}
           {user ? (
             // LOGGED IN VIEW

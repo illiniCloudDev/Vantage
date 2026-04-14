@@ -8,3 +8,6 @@
 }
 
 /* 4. Any regular CSS goes LAST */
+body {
+  background-color: #020617; /* A deep, dark navy for the whole page */
+}

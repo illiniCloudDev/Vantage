@@ -15,6 +15,9 @@ const Hero = () => {
             <Link to="/login" className="inline-flex items-center gap-2 px-8 py-4 bg-[#38bdf8] text-[#0a1120] rounded-full font-bold text-lg hover:bg-[#7dd3fc] transform hover:scale-105 transition-all">
             Get Started <ArrowRight size={20} />
             </Link>
+            <Link to='/signup' className="inline-flex items-center gap-2 px-8 py-4 bg-[#f87338] text-[#0a1120] rounded-full font-bold text-lg hover:bg-[#fa9669] transform hover:scale-105 transition-all ml-4">
+            Sign Up <ArrowRight size={20} />
+            </Link>
         </section>    
         );
 }
