@@ -1,4 +1,14 @@
-const LoginPage = () => {
+import { useNavigate } from "react-router-dom";
+
+const LoginPage = ({setIsLoggedIn}) => {
+  const navigate = useNavigate(); //initialize the useNavigate hook
+
+  const handleLogin = () =>{
+    setIsLoggedIn(true); //update the login state
+    navigate('/dashboard'); //navigate to the dashboard page after login
+  }
+
+
   return (
     <div className="min-h-[80vh] flex flex-col items-center justify-center bg-[#1f3764] ">
       <h1 className="text-4xl font-bold text-center mb-20 text-black">Login to Vantage</h1>
@@ -33,13 +43,15 @@ const LoginPage = () => {
           </div>
 
           <div className="flex flex-col gap-4">
-            <button 
+            <button
+              onClick={handleLogin} //call the handleLogin function on click
               className="w-full bg-[#38bdf8] hover:bg-[#7dd3fc] text-[#0a1120] font-bold py-3 px-4 rounded-xl focus:outline-none transform hover:scale-[1.02] transition-all" 
               type="button"
             >
               Sign In
             </button>
-            <button 
+            <button
+              onClick={() => navigate('/signup')} //navigate to the signup page on click
               className="w-full bg-[#f87338] hover:bg-[#fa9669] text-[#0a1120] font-bold py-3 px-4 rounded-xl focus:outline-none transform hover:scale-[1.02] transition-all" 
               type="button"
             >

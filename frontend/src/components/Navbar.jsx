@@ -1,7 +1,14 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ChartArea } from 'lucide-react';
 
-const Navbar = ({ user }) => {
+const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    setIsLoggedIn(false); // Update the login state
+    navigate('/'); // Redirect to home page after logout
+  };
+
   return (
     <nav className="border-b border-[#1f293a] py-4 bg-[#0d172a]">
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
@@ -13,12 +20,12 @@ const Navbar = ({ user }) => {
 
         <div className="flex items-center gap-8 text-sm font-medium text-[#94a3b8]">
           {/* Conditional Links */}
-          {user ? (
+          {isLoggedIn ? (
             // LOGGED IN VIEW
             <>
               <Link to="/dashboard" className="hover:text-white">Dashboard</Link>
               <Link to="/market" className="hover:text-white">Market News</Link>
-              <button className="px-5 py-2 border border-red-500 text-red-500 rounded-full hover:bg-red-500 hover:text-white transition">
+              <button onClick={handleLogout} className="px-5 py-2 border border-red-500 text-red-500 rounded-full hover:bg-red-500 hover:text-white transition">
                 Logout
               </button>
             </>
