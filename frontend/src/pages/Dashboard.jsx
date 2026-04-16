@@ -1,65 +1,56 @@
-import React from 'react';
+import React, { useState } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import TransactionsTable from '../components/TransactionsTable';
 
 const Dashboard = () => {
 
-    const events = [
-        { title: 'Meeting with Team', date: '2026-04-01' },
-        { title: 'Project Deadline', date: '2026-04-05' },
-        { title: 'Client Presentation', date: '2026-04-10' },
-    ];
+    const [transactions, setTransactions] = useState([
+        { name: 'Bought AAPL', title: 'Bought AAPL', amount: '-$1500', date: '2026-04-01', status: 'paid' },
+        { name: 'Sold TSLA', title: 'Sold TSLA', amount: '+$2000', date: '2026-04-03', status: 'pending' },
+        { name: 'Dividend from MSFT', title: 'Dividend from MSFT', amount: '+$300', date: '2026-04-05', status: 'failed' },
+    ]);
+
 
     const renderEventContent = (eventInfo) => {
-        return (
-            <div className='p-1 overflow-hidden text-xs'>
-                <b className='text-sm'>{eventInfo.timeText}</b>
-                <p>{eventInfo.event.title}</p>
-            </div>
-        );
-    }
-
-
     return (
-        <div className="max-w-7xl mx-auto px-6 py-12">
-            {/* Changed text-black to text-white for visibility */}
-            <h1 className="text-3xl font-bold mb-8 text-white border-b border-[#1f293a] pb-4">
-                Financial Vantage Point
-            </h1>
-            
-            {/* 12-Column Grid: lg:grid-cols-12 gives us the 1/3 to 2/3 split control */}
-            <div className='grid grid-cols-1 lg:grid-cols-12 gap-8'>
-                
-                {/* Left Column: Transactions (Takes up 4 of 12 columns) */}
-                <div className="lg:col-span-4 space-y-6">
-                    <div className="bg-[#0d172a] p-6 rounded-3xl border border-[#1f293a] shadow-2xl min-h-[400px]">
-                        <h2 className='text-white text-xl font-bold mb-4 border-b border-[#1f293a] pb-2'>
-                            Transactions
-                        </h2>
-                        
-                        {/* Placeholder for your future Transaction Form or List */}
-                        <div className="flex flex-col items-center justify-center h-64 border-2 border-dashed border-[#1f293a] rounded-2xl">
-                            <p className="text-[#94a3b8] italic text-sm text-center px-4">
-                                Add a trade or expense to see it reflected on your vantage point.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Right Column: Calendar (Takes up 8 of 12 columns) */}
-                <div className="lg:col-span-8 bg-[#0d172a] p-6 rounded-3xl border border-[#1f293a] shadow-2xl calendar-container text-white">
-                    <FullCalendar
-                        plugins={[dayGridPlugin]}
-                        initialView="dayGridMonth"
-                        weekends={true}
-                        events={events}
-                        eventContent={renderEventContent}
-                        height="auto"
-                    />
-                </div>
+        <div className="p-1 bg-[#38bdf8]/20 text-[#FFFFFF] rounded border border-[#38bdf8]/40 overflow-hidden w-full">
+            {/* Using a smaller font size ensures it fits in the calendar box */}
+            <div className="text-[10px] sm:text-xs leading-tight">
+                {eventInfo.event.title}
             </div>
         </div>
     );
+};
+    
+return (
+    <div className="min-h-screen bg-[#020617] text-white p-8">
+      <div className="max-w-7xl mx-auto">
+        <header className="mb-10">
+          <h1 className="text-3xl font-bold tracking-tight">Financial Vantage Point</h1>
+          <p className="text-slate-400">Welcome back, here is your market overview.</p>
+        </header>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          {/* LEFT: Transactions Table */}
+          <div className="lg:col-span-5">
+            <TransactionsTable transactions={transactions} />
+          </div>
+
+          {/* RIGHT: Calendar */}
+          <div className="lg:col-span-7 bg-[#0d172a] p-6 rounded-2xl border border-[#1f293a] shadow-xl">
+            <FullCalendar
+              plugins={[dayGridPlugin]}
+              initialView="dayGridMonth"
+              events={transactions} // 2. Pass the same state here!
+              eventContent={renderEventContent}
+              height="auto"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 
 }
 
