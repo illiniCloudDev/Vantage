@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import TransactionsTable from '../components/TransactionsTable';
+import AddTransactionForm from '../components/AddTransactionForm';
 
 const Dashboard = () => {
 
@@ -10,6 +11,10 @@ const Dashboard = () => {
         { name: 'Sold TSLA', title: 'Sold TSLA', amount: '+$2000', date: '2026-04-03', status: 'pending' },
         { name: 'Dividend from MSFT', title: 'Dividend from MSFT', amount: '+$300', date: '2026-04-05', status: 'failed' },
     ]);
+
+    const handleTransaction = (newTransaction) => {
+        setTransactions([newTransaction, ...transactions]);
+    };
 
 
     const renderEventContent = (eventInfo) => {
@@ -34,6 +39,7 @@ return (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* LEFT: Transactions Table */}
           <div className="lg:col-span-5">
+            <AddTransactionForm onAdd={handleTransaction}/>
             <TransactionsTable transactions={transactions} />
           </div>
 
