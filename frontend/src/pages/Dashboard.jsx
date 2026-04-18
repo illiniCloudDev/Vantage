@@ -1,19 +1,51 @@
 import React, { useState } from 'react';
+import axios from 'axios'; 
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import TransactionsTable from '../components/TransactionsTable';
 import AddTransactionForm from '../components/AddTransactionForm';
+import { useEffect } from 'react';
 
 const Dashboard = () => {
 
-    const [transactions, setTransactions] = useState([
-        { name: 'Bought AAPL', title: 'Bought AAPL', amount: '-$1500', date: '2026-04-01', status: 'paid' },
-        { name: 'Sold TSLA', title: 'Sold TSLA', amount: '+$2000', date: '2026-04-03', status: 'pending' },
-        { name: 'Dividend from MSFT', title: 'Dividend from MSFT', amount: '+$300', date: '2026-04-05', status: 'failed' },
-    ]);
+    const [transactions, setTransactions] = useState([]);
 
-    const handleTransaction = (newTransaction) => {
-        setTransactions([newTransaction, ...transactions]);
+    //Fetch transactions from backend
+    useEffect(() => {
+      const fetchTransactions = async () => {
+        try{
+          const response = await axios.get('http://localhost:5000/api/transactions');
+
+          const formattedData = response.data.map(t => ({
+                    ...t,
+                    title: `${t.name} ($${t.amount})`
+                }));
+                
+                setTransactions(formattedData);
+        }
+        catch (error){
+
+        }
+      };
+      fetchTransactions();
+
+    }, []);
+
+    const handleTransaction = async (newTrade) => {
+        try {
+            // Send to Backend
+            const response = await axios.post('http://localhost:5000/api/transactions', newTrade);
+            
+            // Add 'title' to the newly saved trade for the UI
+            const addedTrade = {
+                ...response.data,
+                title: `${response.data.name} ($${response.data.amount})`
+            };
+
+            setTransactions([addedTrade, ...transactions]);
+        } catch (error) {
+            console.error("Error saving transaction:", error);
+        }
     };
 
 
