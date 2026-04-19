@@ -18,12 +18,17 @@ const Dashboard = () => {
 
           const formattedData = response.data.map(t => ({
                     ...t,
+                    displayAmount: new Intl.NumberFormat( 'en-US', {
+                      style: 'currency',
+                      currency: 'USD'
+                    }).format(t.amount),
                     title: `${t.name} ($${t.amount})`
                 }));
                 
                 setTransactions(formattedData);
         }
         catch (error){
+          console.log("Fetch failed", error)
 
         }
       };
@@ -34,7 +39,12 @@ const Dashboard = () => {
     const handleTransaction = async (newTrade) => {
         try {
             // Send to Backend
-            const response = await axios.post('http://localhost:5000/api/transactions', newTrade);
+            //making sure amount is set to a number
+            const finalTrade = {
+              ...newTrade,
+              amount: Number(newTrade.amount)
+            };
+            const response = await axios.post('http://localhost:5000/api/transactions', finalTrade);
             
             // Add 'title' to the newly saved trade for the UI
             const addedTrade = {

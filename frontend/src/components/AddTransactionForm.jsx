@@ -5,6 +5,7 @@ const AddTransactionForm = ({ onAdd }) => {
     name: '',
     amount: '',
     date: '',
+    type: 'income'
   });
 
   const handleSubmit = (e) => {
@@ -13,14 +14,14 @@ const AddTransactionForm = ({ onAdd }) => {
     const newTransaction = {
       ...formData,
       title: `${formData.name} (${formData.amount})`,
-      status: 'paid', // Default for now
+      status: 'completed', // Default for now
     };
 
     // 2. Send it up to the Dashboard
     onAdd(newTransaction);
 
     // 3. Clear the form
-    setFormData({ name: '', amount: '', date: '' });
+    setFormData({ name: '', amount: '', date: '', type: 'income' });
   };
 
   return (
@@ -44,6 +45,13 @@ const AddTransactionForm = ({ onAdd }) => {
             onChange={(e) => setFormData({...formData, amount: e.target.value})}
             required
           />
+          <select className='w-1/2 bg-[#0a1120] border border-[#1f293a] p-3 rounded-xl focus:border-[#38bdf8] outline-none text-slate-400'
+          value={formData.type}
+          onChange={(e) => setFormData({...formData, type: e.target.value})}
+          required>
+            <option value='income'>Income</option>
+            <option value='expense'>Expense</option>
+          </select>
           <input 
             type="date" 
             className="w-1/2 bg-[#0a1120] border border-[#1f293a] p-3 rounded-xl focus:border-[#38bdf8] outline-none"

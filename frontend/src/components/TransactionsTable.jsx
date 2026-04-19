@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TABLE_HEAD = ["Transaction", "Amount", "Date", "Status"];
+const TABLE_HEAD = ["Transaction", "Amount", "Date", "Status", "Type"];
 
 const TransactionsTable = ({ transactions }) => {
   return (
@@ -34,6 +34,11 @@ const TransactionsTable = ({ transactions }) => {
                   }`}>
                     {row.status}
                   </span>
+                </td>
+                <td className="px-6 py-4 text-sm">
+                  <span className={row.type === 'income' ? 'text-green-400' : 'text-rose-400'}>
+                    {row.type.charAt(0).toUpperCase() + row.type.slice(1)}
+                 </span>
                 </td>
               </tr>
             ))}
