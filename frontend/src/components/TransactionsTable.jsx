@@ -1,8 +1,9 @@
 import React from 'react';
+import {Pencil, Trash2} from 'lucide-react';
 
-const TABLE_HEAD = ["Transaction", "Amount", "Date", "Status", "Type"];
+const TABLE_HEAD = ["Transaction", "Amount", "Date", "Status", "Type", "Actions"];
 
-const TransactionsTable = ({ transactions }) => {
+const TransactionsTable = ({ transactions, onDelete }) => {
   return (
     <div className="w-full overflow-hidden rounded-2xl border border-[#1f293a] bg-[#0d172a] shadow-2xl">
       <div className="p-6 border-b border-[#1f293a]">
@@ -22,8 +23,8 @@ const TransactionsTable = ({ transactions }) => {
             </tr>
           </thead>
           <tbody className="divide-y divide-[#1f293a]">
-            {transactions.map((row, index) => (
-              <tr key={index} className="hover:bg-[#162033] transition-colors">
+            {transactions.map((row) => (
+              <tr key={row._id} className="hover:bg-[#162033] transition-colors">
                 <td className="px-6 py-4 text-sm font-medium text-white">{row.name}</td>
                 <td className="px-6 py-4 text-sm text-[#38bdf8] font-bold">{row.amount}</td>
                 <td className="px-6 py-4 text-sm text-[#94a3b8]">{row.date}</td>
@@ -39,6 +40,21 @@ const TransactionsTable = ({ transactions }) => {
                   <span className={row.type === 'income' ? 'text-green-400' : 'text-rose-400'}>
                     {row.type.charAt(0).toUpperCase() + row.type.slice(1)}
                  </span>
+                </td>
+                <td className="px-6 py-4">
+                  <div className='flex items-center gap-3'>
+                    <button
+                    onClick={() => onDelete(row._id)}
+                    className='p-2 text-slate-400 hover:text-[#38bdf8] hover:bg-[#38bdf8]/10 rounded-lg transition-all'
+                    title="Delete Transaction"
+                    >
+                      <Trash2 size={18}></Trash2>
+                    </button>
+
+                    <button> Edit </button>
+
+                  </div>
+
                 </td>
               </tr>
             ))}

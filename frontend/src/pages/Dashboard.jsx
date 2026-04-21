@@ -4,6 +4,7 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import TransactionsTable from '../components/TransactionsTable';
 import AddTransactionForm from '../components/AddTransactionForm';
+import { getTransactions, deleteTransaction, createTransaction } from '../services/transactionService';
 import { useEffect } from 'react';
 
 const Dashboard = () => {
@@ -14,7 +15,7 @@ const Dashboard = () => {
     useEffect(() => {
       const fetchTransactions = async () => {
         try{
-          const response = await axios.get('http://localhost:5000/api/transactions');
+          const response = await getTransactions()
 
           const formattedData = response.data.map(t => ({
                     ...t,
@@ -44,7 +45,7 @@ const Dashboard = () => {
               ...newTrade,
               amount: Number(newTrade.amount)
             };
-            const response = await axios.post('http://localhost:5000/api/transactions', finalTrade);
+            const response = await createTransaction(finalTrade);
             
             // Add 'title' to the newly saved trade for the UI
             const addedTrade = {
@@ -57,6 +58,19 @@ const Dashboard = () => {
             console.error("Error saving transaction:", error);
         }
     };
+
+    const handleDelete = async (id) => {
+      try{
+        //deleting in backend
+        await deleteTransaction(id)
+        //updating UI for deleted trade
+        setTransactions(transactions.filter(t => t._id !== id));
+        console.log(`Transaction deleted successfully! id: ${id}`)
+
+      }catch(error){
+        console.error('Delete Failed', error)
+      }
+    }
 
 
     const renderEventContent = (eventInfo) => {
@@ -82,7 +96,10 @@ return (
           {/* LEFT: Transactions Table */}
           <div className="lg:col-span-5">
             <AddTransactionForm onAdd={handleTransaction}/>
-            <TransactionsTable transactions={transactions} />
+            <TransactionsTable 
+            transactions={transactions}
+            onDelete={handleDelete}
+             />
           </div>
 
           {/* RIGHT: Calendar */}

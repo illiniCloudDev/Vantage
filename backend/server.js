@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
+const Transaction = require('./models/Transaction');
+
 
 dotenv.config();
 
@@ -30,7 +32,6 @@ app.get('/api/transactions', async (req, res) => {
 });
 
 
-const Transaction = require('./models/Transaction');
 
 // @desc    Add a new transaction
 // @route   POST /api/transactions
@@ -42,7 +43,21 @@ app.post('/api/transactions', async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
+// @desc    Delete a transaction
+// @route   DELETE /api/transactions/:id
+app.delete('/api/transactions/:id', async (req, res) => {
+  try {
+    const transaction = await Transaction.findByIdAndDelete(req.params.id);
 
+    if (!transaction) {
+      return res.status(404).json({ message: 'Transaction not found' });
+    }
+
+    res.status(200).json({ message: 'Transaction removed' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 // Start the server
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
