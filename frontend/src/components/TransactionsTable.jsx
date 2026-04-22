@@ -3,7 +3,7 @@ import {Pencil, Trash2} from 'lucide-react';
 
 const TABLE_HEAD = ["Transaction", "Amount", "Date", "Status", "Type", "Actions"];
 
-const TransactionsTable = ({ transactions, onDelete }) => {
+const TransactionsTable = ({ transactions, onDelete, onEdit}) => {
   return (
     <div className="w-full overflow-hidden rounded-2xl border border-[#1f293a] bg-[#0d172a] shadow-2xl">
       <div className="p-6 border-b border-[#1f293a]">
@@ -50,9 +50,13 @@ const TransactionsTable = ({ transactions, onDelete }) => {
                     >
                       <Trash2 size={18}></Trash2>
                     </button>
-
-                    <button> Edit </button>
-
+                    <button
+                    onClick={() => onEdit(row)}
+                    className='p-2 text-slate-400 hover:text-[#38bdf8] hover:bg-[#38bdf8]/10 rounded-lg transition-all'
+                    title="Edit Transaction"
+                    >
+                      <Pencil size={18}></Pencil>
+                    </button>
                   </div>
 
                 </td>

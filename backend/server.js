@@ -58,6 +58,18 @@ app.delete('/api/transactions/:id', async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+app.put('/api/transactions/:id', async (req, res) => {
+    try {
+        const updatedTransaction = await Transaction.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            {new: true}
+        );
+        res.status(200).json(updatedTransaction);
+    } catch (error) {
+        res.status(400).json({message: error.message });
+    }
+});
 // Start the server
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

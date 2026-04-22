@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const AddTransactionForm = ({ onAdd }) => {
+const AddTransactionForm = ({ onAdd, editingTransaction, onUpdate, onCancel }) => {
   const [formData, setFormData] = useState({
     name: '',
     amount: '',
@@ -8,20 +8,40 @@ const AddTransactionForm = ({ onAdd }) => {
     type: 'income'
   });
 
+  useEffect(() => {
+    if(editingTransaction){
+      setFormData({
+        name: editingTransaction.name,
+        amount: editingTransaction.amount,
+        date: editingTransaction.date ? editingTransaction.date.split('T')[0] : '',
+        type: editingTransaction.type
+    });
+  }else{
+    setFormData({name: '', amount:'', date:'', type:'', type:'income'});
+  }
+}, [editingTransaction]); 
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // 1. Create the final object (adding the 'title' for FullCalendar)
-    const newTransaction = {
-      ...formData,
-      title: `${formData.name} (${formData.amount})`,
-      status: 'completed', // Default for now
-    };
 
-    // 2. Send it up to the Dashboard
-    onAdd(newTransaction);
+    if(editingTransaction){
+      onUpdate(editingTransaction._id, formData)
+    }else{
+      
+      // 1. Create the final object (adding the 'title' for FullCalendar)
+      const newTransaction = {
+        ...formData,
+        title: `${formData.name} (${formData.amount})`,
+        status: 'completed', // Default for now
+      };
 
-    // 3. Clear the form
-    setFormData({ name: '', amount: '', date: '', type: 'income' });
+      // 2. Send it up to the Dashboard
+      onAdd(newTransaction);
+
+      // 3. Clear the form
+      setFormData({ name: '', amount: '', date: '', type: 'income' });
+
+      }
   };
 
   return (
@@ -60,9 +80,27 @@ const AddTransactionForm = ({ onAdd }) => {
             required
           />
         </div>
-        <button type="submit" className="bg-[#38bdf8] text-[#0a1120] font-bold py-3 rounded-xl hover:scale-[1.02] transition-transform">
-          Add to Vantage
-        </button>
+        <div className="flex gap-2">
+          <button 
+            type="submit" 
+            className={`flex-1 font-bold py-3 rounded-xl transition-all ${
+              editingTransaction ? 'bg-amber-500 text-black' : 'bg-[#38bdf8] text-[#0a1120]'
+            }`}
+          >
+            {editingTransaction ? 'Save Changes' : 'Add to Vantage'}
+          </button>
+          
+          {editingTransaction && (
+            <button 
+              type="button"
+              onClick={onCancel}
+              className="px-6 py-3 rounded-xl border border-[#1f293a] hover:bg-white/5 transition-colors"
+            >
+              Cancel
+            </button>
+          )}
+        </div>
+
       </div>
     </form>
   );

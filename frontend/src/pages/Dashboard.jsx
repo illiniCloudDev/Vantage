@@ -4,12 +4,13 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import TransactionsTable from '../components/TransactionsTable';
 import AddTransactionForm from '../components/AddTransactionForm';
-import { getTransactions, deleteTransaction, createTransaction } from '../services/transactionService';
+import { getTransactions, deleteTransaction, createTransaction, updateTransaction } from '../services/transactionService';
 import { useEffect } from 'react';
 
 const Dashboard = () => {
 
     const [transactions, setTransactions] = useState([]);
+    const [editingTransaction, setEditingTransaction] = useState(null);
 
     //Fetch transactions from backend
     useEffect(() => {
@@ -72,6 +73,28 @@ const Dashboard = () => {
       }
     }
 
+    //editing mode
+    const handleEdit = (transaction) => {
+      setEditingTransaction(transaction);
+    };
+    const handleCancel = () => {
+      setEditingTransaction(null); // This clears the form and resets the button to blue
+    };
+    const handleUpdate = async (id, updatedData) => {
+      console.log(id,updatedData)
+      try {
+        const response = await updateTransaction(id, updatedData);
+        //update UI
+        setTransactions(transactions.map(t => 
+          t._id === id ? { ...response.data, title: `${response.data.name} ($${response.data.amount})` } : t
+    ));
+        setEditingTransaction(null)
+      } catch (error) {
+        console.log("Update failed", error)
+        
+      }
+    }
+
 
     const renderEventContent = (eventInfo) => {
     return (
@@ -95,10 +118,17 @@ return (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* LEFT: Transactions Table */}
           <div className="lg:col-span-5">
-            <AddTransactionForm onAdd={handleTransaction}/>
+            <AddTransactionForm 
+            onAdd={handleTransaction}
+            editingTransaction={editingTransaction}
+            onUpdate={handleUpdate}
+            onCancel={handleCancel}
+
+            />
             <TransactionsTable 
             transactions={transactions}
             onDelete={handleDelete}
+            onEdit={handleEdit}
              />
           </div>
 
