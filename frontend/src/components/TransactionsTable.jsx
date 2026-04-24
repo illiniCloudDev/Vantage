@@ -27,7 +27,7 @@ const TransactionsTable = ({ transactions, onDelete, onEdit}) => {
               <tr key={row._id} className="hover:bg-[#162033] transition-colors">
                 <td className="px-6 py-4 text-sm font-medium text-white">{row.name}</td>
                 <td className="px-6 py-4 text-sm text-[#38bdf8] font-bold">{row.amount}</td>
-                <td className="px-6 py-4 text-sm text-[#94a3b8]">{row.date}</td>
+                <td className="px-6 py-4 text-sm text-[#94a3b8]">{new Date(row.date).toLocaleDateString('en-US',{timeZone: 'UTC'})}</td>
                 <td className="px-6 py-4">
                   <span className={`px-3 py-1 rounded-full text-xs font-medium ${
                     row.status === 'paid' ? 'bg-green-500/10 text-green-500' : 

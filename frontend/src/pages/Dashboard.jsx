@@ -140,6 +140,7 @@ return (
               events={transactions} // 2. Pass the same state here!
               eventContent={renderEventContent}
               height="auto"
+              timeZone='UTC'
             />
           </div>
         </div>
