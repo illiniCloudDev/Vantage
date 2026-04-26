@@ -11,3 +11,7 @@
 body {
   background-color: #020617; /* A deep, dark navy for the whole page */
 }
+.fc .fc-col-header-cell-cushion {
+  color: #575f6b !important; 
+  text-decoration: none !important;
+}

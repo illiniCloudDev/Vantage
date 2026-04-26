@@ -4,6 +4,7 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import TransactionsTable from '../components/TransactionsTable';
 import AddTransactionForm from '../components/AddTransactionForm';
+import FinancialOverview from '../components/FinancialOverview';
 import { getTransactions, deleteTransaction, createTransaction, updateTransaction } from '../services/transactionService';
 import { useEffect } from 'react';
 
@@ -77,6 +78,7 @@ const Dashboard = () => {
     const handleEdit = (transaction) => {
       setEditingTransaction(transaction);
     };
+    //cancels edit mode
     const handleCancel = () => {
       setEditingTransaction(null); // This clears the form and resets the button to blue
     };
@@ -114,6 +116,8 @@ return (
           <h1 className="text-3xl font-bold tracking-tight">Financial Vantage Point</h1>
           <p className="text-slate-400">Welcome back, here is your market overview.</p>
         </header>
+        <FinancialOverview
+        transactions={transactions}/>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* LEFT: Transactions Table */}
