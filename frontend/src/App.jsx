@@ -11,6 +11,7 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import Dashboard from './pages/Dashboard';
+import MarketNews from './pages/MarketNews';
 
 
 const App =  () => {
@@ -23,6 +24,7 @@ const App =  () => {
             <Route path="/login" element={<LoginPage setIsLoggedIn={setIsLoggedIn}/>} />
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/news" element={<MarketNews />} />
         </Route>
     )
 );
