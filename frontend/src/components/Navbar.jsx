@@ -33,7 +33,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
             // LOGGED OUT VIEW
             <>
               <Link to="#investing" className="hover:text-white">Investing</Link>
-              <Link to="#markets" className="hover:text-white">Markets</Link>
+              <Link to="/news" className="hover:text-white">Markets</Link>
               <Link to="/login" className="px-5 py-2 border border-[#38bdf8] rounded-full text-[#38bdf8] hover:bg-[#38bdf8] hover:text-[#0a1120] transition">
                 Login
               </Link>
