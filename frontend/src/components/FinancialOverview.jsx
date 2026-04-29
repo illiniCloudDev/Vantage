@@ -4,9 +4,9 @@ import { DollarSign, ArrowUpRight, ArrowDownRight, TrendingUp } from 'lucide-rea
 const FinancialOverview = ({transactions}) => {
   // pass through transactions prop
   console.log(transactions)
-  for (const prop in transactions){
-    console.log(`${transactions[prop].date}`)
-  }
+  // for (const prop in transactions){
+  //   console.log(`${transactions[prop].date}`)
+  // }
 
   //Inflow and outflow logic
   const totals = transactions.reduce((acc,curr) => {

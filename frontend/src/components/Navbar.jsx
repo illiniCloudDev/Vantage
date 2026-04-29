@@ -24,7 +24,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
             // LOGGED IN VIEW
             <>
               <Link to="/dashboard" className="hover:text-white">Dashboard</Link>
-              <Link to="/market" className="hover:text-white">Market News</Link>
+              <Link to="/news" className="hover:text-white">Market News</Link>
               <button onClick={handleLogout} className="px-5 py-2 border border-red-500 text-red-500 rounded-full hover:bg-red-500 hover:text-white transition">
                 Logout
               </button>
@@ -33,7 +33,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
             // LOGGED OUT VIEW
             <>
               <Link to="#investing" className="hover:text-white">Investing</Link>
-              <Link to="/news" className="hover:text-white">Markets</Link>
+              <Link to="/news" className="hover:text-white">Market News</Link>
               <Link to="/login" className="px-5 py-2 border border-[#38bdf8] rounded-full text-[#38bdf8] hover:bg-[#38bdf8] hover:text-[#0a1120] transition">
                 Login
               </Link>
