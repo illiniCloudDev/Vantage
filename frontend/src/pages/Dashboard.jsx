@@ -5,6 +5,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import TransactionsTable from '../components/TransactionsTable';
 import AddTransactionForm from '../components/AddTransactionForm';
 import FinancialOverview from '../components/FinancialOverview';
+import FinancialChart from '../components/FinancialChart';
 import { getTransactions, deleteTransaction, createTransaction, updateTransaction } from '../services/transactionService';
 import { useEffect } from 'react';
 
@@ -118,6 +119,7 @@ return (
         </header>
         <FinancialOverview
         transactions={transactions}/>
+        <FinancialChart transactions={transactions}/>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* LEFT: Transactions Table */}
