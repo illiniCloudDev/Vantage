@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser');
 const authRoutes = require('./routes/auth');
 
 
-dotenv.config();
+dotenv.config({path: './.env'});
 
 //Connect to MongoDB
 connectDB();

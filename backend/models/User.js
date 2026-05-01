@@ -27,6 +27,9 @@ const UserSchema = new mongoose.Schema({
 }, {timestamps: true});
 
 // Remove 'next' from the arguments
+//
+// Pre-save Hook: Hashes the password before saving to the DB.
+// Using an async function allows us to skip the 'next' callback in modern Mongoose.
 UserSchema.pre('save', async function() {
   if (!this.isModified('password')) {
     return; // Just return; Mongoose knows you're done
