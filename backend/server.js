@@ -5,6 +5,7 @@ const connectDB = require('./config/db');
 const Transaction = require('./models/Transaction');
 const cookieParser = require('cookie-parser');
 const authRoutes = require('./routes/auth');
+const transactions = require('./routes/transactions');
 
 
 dotenv.config({path: './.env'});
@@ -20,6 +21,7 @@ app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 app.use('/api/auth', authRoutes)
+app.use('/api/transactions', transactions)
 
 //Test Route
 

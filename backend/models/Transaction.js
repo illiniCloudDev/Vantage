@@ -26,7 +26,8 @@ const TransactionSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.ObjectId, 
         ref: 'User',
-        required: true
+        required: true,
+        index: true // this is so mongodb can find the ID faster
     },
     createdAt: {
         type: Date,

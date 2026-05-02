@@ -91,3 +91,15 @@ exports.logout = async (req, res) => {
 
   res.status(200).json({ success: true, data: {} });
 };
+// @desc    Get current logged in user
+// @route   POST /api/auth/me
+// @access  Private
+exports.getMe = async (req, res) => {
+  // req.user was already attached by our 'protect' middleware
+  const user = req.user
+
+  res.status(200).json({
+    success: true,
+    data: user
+  });
+};
