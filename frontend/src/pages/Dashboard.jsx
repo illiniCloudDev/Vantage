@@ -19,6 +19,7 @@ const Dashboard = () => {
       const fetchTransactions = async () => {
         try{
           const response = await getTransactions()
+          console.log(response)
 
           const formattedData = response.data.map(t => ({
                     ...t,
