@@ -11,7 +11,7 @@ export default defineConfig({
     react(), 
     tailwindcss()
   ],
-  root: __dirname,
+  root: path.resolve(__dirname),
   build: {
     outDir: path.resolve(__dirname, 'dist'),
     emptyOutDir: true,
