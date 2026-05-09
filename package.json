@@ -7,5 +7,9 @@
     "start": "node backend/server.js",
     "build": "npm install && npm install --prefix backend && cd frontend && npm install && npm run build" 
   },
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.1",
+    "vite": "^8.0.4"
+  }
 }
