@@ -5,7 +5,7 @@
   "main": "backend/server.js",
   "scripts": {
     "start": "node backend/server.js",
-    "build": "npm install && npm install --prefix backend && npm install --prefix frontend && cd frontend && npx vite build" 
+    "build": "npm install && npm install --prefix backend && npm install --prefix frontend && cd frontend && ../node_modules/.bin/vite build"
   },
   "dependencies": {},
   "devDependencies": {
