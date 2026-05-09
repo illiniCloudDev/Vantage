@@ -10,6 +10,7 @@
   "dependencies": {},
   "devDependencies": {
     "@vitejs/plugin-react": "^6.0.1",
+    "@tailwindcss/vite": "^4.2.2",
     "vite": "^8.0.4"
   }
 }
