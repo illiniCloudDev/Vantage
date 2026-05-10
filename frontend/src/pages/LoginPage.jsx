@@ -19,7 +19,7 @@ const LoginPage = ({setIsLoggedIn}) => {
     e.preventDefault();
 
     try {
-      const res = await axios.post('/api/auth/login', {email, password});
+      const res = api.post('/api/auth/login', {email, password});
       
       if(res.data.success){
         setIsLoggedIn(true);
