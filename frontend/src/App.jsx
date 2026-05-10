@@ -13,6 +13,7 @@ import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import Dashboard from './pages/Dashboard';
 import NewsPage from './pages/NewsPage';
+import api from './services/api'; 
 
 
 const App =  () => {
@@ -24,7 +25,7 @@ const App =  () => {
     useEffect(() =>{
         const checkAuthStatus = async () => {
             try {
-                const res = await axios.get('/api/auth/me');
+                const res = await api.get('/api/auth/me');
                 if(res.data.success){
                     setIsLoggedIn(true);
                 }

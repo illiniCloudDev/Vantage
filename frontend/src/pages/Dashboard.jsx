@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios'; 
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import TransactionsTable from '../components/TransactionsTable';

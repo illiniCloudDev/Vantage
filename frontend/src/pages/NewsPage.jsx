@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from "react";
-import axios from "axios";
+import api from '../services/api'
 
 import NewsCard from "../components/NewsCard";
 
@@ -19,7 +19,7 @@ const NewsPage = () => {
         // Using the News & Sentiment endpoint
         const url = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&sort=LATEST&limit=10&apikey=${API_KEY}`;
         
-        const response = await axios.get(url);
+        const response = await api.get(url);
         console.log(response.data.feed)
         
         // Alpha Vantage returns data in a 'feed' array
