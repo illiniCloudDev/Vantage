@@ -1,21 +1,22 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
-import { fileURLToPath } from 'url';
-import path from 'path'
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
     react(), 
     tailwindcss()
   ],
-  root: path.resolve(__dirname),
-  build: {
-    outDir: path.resolve(__dirname, 'dist'),
-    emptyOutDir: true,
+  // 1. Root and Build paths are now automatic since we're inside the /frontend folder
+  // 2. We keep the alias because it's great for clean imports like '@/components/...'
+  resolve: {
+    alias: {
+      '@': '/src',
+    },
   },
+  // 3. Keep the proxy for LOCAL development
+  // This won't affect the Render production build
   server: {
     proxy: {
       '/api': {
@@ -23,11 +24,6 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
       },
-    },
-  },
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
     },
   },
 })
