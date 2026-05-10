@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import api from '../services/api'
+
 
 const SignUpPage = () => {
   const navigate = useNavigate();
@@ -26,7 +28,7 @@ const SignUpPage = () => {
 
     try {
       // Sending userName, email, and password to match your register controller
-      const res = await axios.post('/api/auth/register', { userName, email, password });
+      const res = await api.post('/api/auth/register', { userName, email, password });
       
       console.log('User Registered:', res.data);
       alert('Account created! Redirecting to login...');
