@@ -5,8 +5,6 @@ import {
     createRoutesFromElements,
     RouterProvider
 } from 'react-router-dom';
-import axios from 'axios';
-
 import MainLayout from './layouts/MainLayout';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
