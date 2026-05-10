@@ -6,34 +6,30 @@ const Transaction = require('./models/Transaction');
 const cookieParser = require('cookie-parser');
 const authRoutes = require('./routes/auth');
 const transactions = require('./routes/transactions');
-const path = require('path');
 
 
-dotenv.config({path: './.env'});
+dotenv.config();
 
 //Connect to MongoDB
 connectDB();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const frontendPath = path.join(__dirname, '..', 'frontend', 'dist')
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
+
+//Routes
 app.use('/api/auth', authRoutes)
 app.use('/api/transactions', transactions)
-app.use(express.static(frontendPath))
 
 //Test Route
-// app.get('/', (req, res) => {
-//     res.send('Vantage is online!');
-// });
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(frontendPath, 'index.html'));
+app.get('/', (req, res) => {
+    res.send('Vantage is online!');
 });
+
 
 // Start the server
 app.listen(PORT, () => {

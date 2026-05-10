@@ -7,11 +7,11 @@
     "start": "node backend/server.js",
     "build": "npm install && npm install --prefix backend && npm install --prefix frontend && vite build --config frontend/vite.config.mjs"
   },
-  "dependencies": {
-    "vite":"^8.0.4"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@vitejs/plugin-react": "^6.0.1",
-    "@tailwindcss/vite": "^4.2.2"
+    "@tailwindcss/vite": "^4.2.2",
+    "vite":"^8.0.4"
+
   }
 }
