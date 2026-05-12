@@ -18,7 +18,7 @@ const App =  () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [loading, setLoading] = useState(true);
 
-    const protectedRoute = ({ isLoggedIn, children}) => {
+    const ProtectedRoute = ({ isLoggedIn, children}) => {
         if(!isLoggedIn){
             return <Navigate to='/login' replace/>;
         }
