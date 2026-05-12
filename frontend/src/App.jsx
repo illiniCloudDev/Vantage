@@ -3,7 +3,8 @@ import {
     Route,
     createBrowserRouter, 
     createRoutesFromElements,
-    RouterProvider
+    RouterProvider,
+    Navigate
 } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import HomePage from './pages/HomePage';
@@ -14,17 +15,17 @@ import NewsPage from './pages/NewsPage';
 import api from './services/api'; 
 
 
+
+const ProtectedRoute = ({ isLoggedIn, children}) => {
+    if(!isLoggedIn){
+        return <Navigate to='/login' replace/>;
+    }
+    return children
+};
+
 const App =  () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [loading, setLoading] = useState(true);
-
-    const ProtectedRoute = ({ isLoggedIn, children}) => {
-        if(!isLoggedIn){
-            return <Navigate to='/login' replace/>;
-        }
-        return children
-    };
-
 
     //check authentication 
     useEffect(() =>{
