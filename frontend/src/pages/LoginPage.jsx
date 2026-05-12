@@ -18,7 +18,7 @@ const LoginPage = ({setIsLoggedIn}) => {
     e.preventDefault();
 
     try {
-      const res = api.post('/api/auth/login', {email, password});
+      const res = await api.post('/api/auth/login', {email, password});
       
       if(res.data.success){
         setIsLoggedIn(true);
