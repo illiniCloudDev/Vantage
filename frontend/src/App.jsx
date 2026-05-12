@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, Children } from 'react';
 import {
     Route,
     createBrowserRouter, 
@@ -17,6 +17,13 @@ import api from './services/api';
 const App =  () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [loading, setLoading] = useState(true);
+
+    const protectedRoute = ({ isLoggedIn, children}) => {
+        if(!isLoggedIn){
+            return <Navigate to='/login' replace/>;
+        }
+        return children
+    };
 
 
     //check authentication 
@@ -43,7 +50,9 @@ const App =  () => {
                 <Route index element={<HomePage />} />
                 <Route path="/login" element={<LoginPage setIsLoggedIn={setIsLoggedIn}/>} />
                 <Route path="/signup" element={<SignUpPage />} />
-                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/dashboard" element={<ProtectedRoute isLoggedIn={isLoggedIn}>
+                    <Dashboard />
+                </ProtectedRoute>} />
                 <Route path="/news" element={<NewsPage />} />
             </Route>
         )

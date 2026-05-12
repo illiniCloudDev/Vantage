@@ -1,12 +1,23 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { ChartArea } from 'lucide-react';
+import api from '../services/api';
 
 const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    setIsLoggedIn(false); // Update the login state
-    navigate('/'); // Redirect to home page after logout
+  const handleLogout = async () => {
+    try {
+      await api.get('/api/auth/logout');
+      
+      setIsLoggedIn(false);
+      navigate('/');
+    } catch (err) {
+      console.error('Logout failed', err);
+
+      setIsLoggedIn(false);
+      navigate('/login')
+      
+    }
   };
 
   return (

@@ -18,7 +18,7 @@ const Dashboard = () => {
       const fetchTransactions = async () => {
         try{
           const response = await getTransactions()
-          console.log(response)
+          //console.log(response)
 
           const formattedData = response.data.map(t => ({
                     ...t,
@@ -84,7 +84,7 @@ const Dashboard = () => {
       setEditingTransaction(null); // This clears the form and resets the button to blue
     };
     const handleUpdate = async (id, updatedData) => {
-      console.log(id,updatedData)
+      //console.log(id,updatedData)
       try {
         const response = await updateTransaction(id, updatedData);
         //update UI
